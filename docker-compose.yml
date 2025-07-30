@@ -1,0 +1,35 @@
+services:
+  ui-kit-develop:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: ui-kit-development
+    ports:
+      - '5173:5173'
+    profiles:
+      - develop
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - node_modules
+            - .svelte-kit
+            - build
+            - dist
+            - .git
+        - action: rebuild
+          path: ./package.json
+        - action: rebuild
+          path: ./pnpm-lock.yaml
+
+  ui-kit-production:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ui-kit-production
+    ports:
+      - '80:80'
+    profiles:
+      - production

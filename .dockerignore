@@ -1,0 +1,73 @@
+# ===================================================================
+# == Generic Docker Ignore File for Svelte/SvelteKit Projects ==
+# ===================================================================
+# This file prevents unnecessary files from being sent to the Docker daemon,
+# speeding up builds and avoiding potential errors.
+
+# -------------------------------------
+# -- Dependency Directories
+# -------------------------------------
+# Dependencies should ALWAYS be installed inside the container, not copied from the host.
+# The `**` pattern ensures it's ignored at any depth (for monorepos).
+**/node_modules
+
+# -------------------------------------
+# -- Build & Cache Artifacts
+# -------------------------------------
+# These are generated during development or build, and should not be part of the context.
+.svelte-kit
+build
+dist
+coverage
+
+# -------------------------------------
+# -- Version Control & Git
+# -------------------------------------
+# The Docker image should be clean and not contain Git history.
+.git
+.gitignore
+.gitattributes
+
+# -------------------------------------
+# -- Local Development & Tooling
+# -------------------------------------
+# Configuration for local tools that are not needed inside the container.
+.vscode
+.idea
+.husky
+.devcontainer
+
+# -------------------------------------
+# -- Environment & Secrets
+# -------------------------------------
+# Never include local environment variables in your Docker image.
+# They should be passed to the container at runtime.
+.env
+.env.*
+!.env.example
+
+# -------------------------------------
+# -- Operating System Files
+# -------------------------------------
+# Common OS-generated files that have no place in a Docker image.
+.DS_Store
+Thumbs.db
+
+# -------------------------------------
+# -- Logs & Debugging
+# -------------------------------------
+# Log files from local runs should be ignored.
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# -------------------------------------
+# -- Docker-related Files
+# -------------------------------------
+# These files are used to build the image, they don't need to be inside it.
+Dockerfile
+Dockerfile.*
+docker-compose.yml
+docker-compose.*.yml
+.dockerignore
